@@ -1,0 +1,46 @@
+<template>
+    <div class="bg-orange-500 p-4 rounded-lg text-center shadow-md banner ">
+
+        <h3 class="text-white font-extrabold mb-2 text-3xl md:text-4xl text-center 
+           bg-gradient-to-r from-yellow-300 via-red-400 to-pink-500 
+           bg-clip-text text-transparent 
+           drop-shadow-lg 
+           animate-pulse">Reservez en toute secutité via
+            <FontAwesomeIcon :icon="['fas', 'paper-plane']" class="text-white w-8 h-8 animate-bounce" />
+        </h3>
+
+        <!-- Boutons -->
+        <div class="flex  sm:flex-row gap-3 justify-center text-sm">
+            <!-- Bouton Téléphone (bleu foncé) -->
+            <a href="https://wa.me/237679135177" target="_blank"
+                class="flex items-center justify-center bg-blue-900 text-white px-2 py-2 rounded-lg font-semibold hover:bg-blue-800 transition ease-in-out duration-200  ">
+                <Phone class="h-5 w-5 mr-1" />
+                +237 6 79 13 51 77
+            </a>
+
+            <!-- Bouton WhatsApp (vert) -->
+            <a href="https://wa.me/237694223503" target="_blank" rel="noopener noreferrer"
+                class="flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition ease-in-out duration-200 ">
+                <!-- <MessageCircle class="h-5 w-5 ml-2" /> -->
+                <FontAwesomeIcon :icon="['fab', 'whatsapp']" class="h-5 w-5 ml-2 text-xl" />
+                <span class="text-sm">+237 694 22 35 03</span>
+
+            </a>
+        </div>
+    </div>
+</template>
+
+<script setup>
+// Import des icônes Lucide
+import { Phone, MessageCircle } from 'lucide-vue-next';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
+library.add(faWhatsapp, faPaperPlane)
+</script>
+
+<style scoped>
+/* Optionnel : style personnalisé si besoin      */
+
+</style>
