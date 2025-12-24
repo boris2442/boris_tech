@@ -31,7 +31,7 @@ onUnmounted(() => {
         <div v-if="showButtons" class="pointer-events-none fixed bottom-6 z-50 flex w-full justify-between px-6">
             <!-- WhatsApp avec animation et badge -->
             <a
-                href="https://wa.me/694223503"
+                href="https://wa.me/237694223503"
                 target="_blank"
                 class="pointer-events-auto relative transform rounded-full bg-[var(--flash)] p-2 text-white shadow-lg transition hover:scale-110 hover:bg-green-600 animate-bounce-short"
                 title="Contactez-nous sur WhatsApp"
