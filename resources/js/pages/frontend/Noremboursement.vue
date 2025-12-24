@@ -8,7 +8,10 @@ import { Head } from '@inertiajs/inertia-vue3';
 import CartWidget from '@/components/frontend/panier/CartWidget.vue';
 import TopBanner from '@/components/frontend/TopBanner.vue';
 import FlashMessageNewsletter from '@/components/FlashMessageNewsletter.vue';
-
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+const page = usePage();
+const isGuest = computed(() => !page.props.auth?.user);
 
 </script>
 <template>
@@ -18,7 +21,7 @@ import FlashMessageNewsletter from '@/components/FlashMessageNewsletter.vue';
    <TopBanner/>
     <NavbarFrontend :auth="$page.props.auth as Record<string, any> | undefined" class="mt-10 md:mt-12"/>
     <FloatingAction/>
-       <LoginReminder />
+       <!-- <LoginReminder v-if="isGuest" /> -->
   <section>
 
     <div

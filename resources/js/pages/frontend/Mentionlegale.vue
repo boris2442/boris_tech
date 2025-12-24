@@ -45,6 +45,10 @@ const sections = reactive([
         extraText: '📍 Adresse : Boris Tech, Bafoussam - Yaoundé, Cameroun',
     },
 ]);
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+const page = usePage();
+const isGuest = computed(() => !page.props.auth?.user);
 </script>
 
 <template>
@@ -56,7 +60,7 @@ const sections = reactive([
     <TopBanner />
     <NavbarFrontend :auth="$page.props.auth as Record<string, any> | undefined" class="mt-10 md:mt-12" />
     <FloatingAction />
-    <LoginReminder />
+    <!-- <LoginReminder v-if="isGuest" /> -->
     <section
         class="bg-[var(--secondary-white)] px-6 text-[var(--text-dark)] antialiased dark:bg-[var(--dark-background)] dark:text-[var(--dark-white)]"
     >

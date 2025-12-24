@@ -44,7 +44,7 @@ onMounted(() => {
         <TopBanner />
         <NavbarFrontend :auth="$page.props.auth" class="mt-10 md:mt-12" />
         <FloatingAction />
-        <LoginReminder />
+        <!-- <LoginReminder /> -->
         <FlashMessageNewsletter />
         <!-- Hero Section Premium -->
         <section

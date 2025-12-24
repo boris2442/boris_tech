@@ -173,7 +173,7 @@
     <Testimony />
     <LogoMarque />
     <RadarProducts />
-    <!-- <LoginReminder /> -->
+    <!-- <LoginReminder v-if="isGuest" /> -->
     <Footer />
 
     <!-- Image volante -->
@@ -192,6 +192,7 @@
 </template>
 
 <script setup>
+import FlashMessageNewsletter from '@/components/FlashMessageNewsletter.vue';
 import About2 from '@/components/frontend/About2.vue';
 import FlashMessageFrontend from '@/components/frontend/flash/FlashMessageFrontend.vue';
 import LoginReminder from '@/components/frontend/flash/LoginReminder.vue';
@@ -203,23 +204,21 @@ import Map2 from '@/components/frontend/Map2.vue';
 import NavbarFrontend from '@/components/frontend/NavbarFrontend.vue';
 import CartWidget from '@/components/frontend/panier/CartWidget.vue';
 import { cartStore } from '@/components/frontend/panier/stores/cart';
+import RadarProducts from '@/components/frontend/RadarProducts.vue';
 import Service from '@/components/frontend/Service.vue';
 import Testimony from '@/components/frontend/Testimony.vue';
 import TopBanner from '@/components/frontend/TopBanner.vue';
 import LogoMarque from '@/components/LogoMarque.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
-import axios from 'axios';
-import RadarProducts from '@/components/frontend/RadarProducts.vue';
-import 'swiper/css';
-import { Autoplay, Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { computed, onMounted, ref } from 'vue';
-
-import FlashMessageNewsletter from '@/components/FlashMessageNewsletter.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import axios from 'axios';
+import 'swiper/css';
+import { Autoplay, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { computed, onMounted, ref } from 'vue';
 library.add(faCartShopping, faHeart);
 
 const props = defineProps({
@@ -229,7 +228,8 @@ const props = defineProps({
     auth: Object,
     seo: Object,
 });
-
+const page = usePage();
+const isGuest = computed(() => !page.props.auth?.user);
 const search = ref(props.filters.search || '');
 const selectedCategory = ref(props.filters.category || '');
 const darkMode = ref(false);

@@ -7,7 +7,7 @@
     <FloatingAction />
     <NavbarFrontend :auth="$page.props.auth" class="mt-10 md:mt-12" />
     <BackButton class="mt-4 mb-0" />
-    <LoginReminder />
+    <!-- <LoginReminder v-if="isGuest" /> -->
     <section class="bg-background-light dark:bg-dark-background text-text-dark dark:text-dark-white p-4 md:p-8">
         <div class="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2">
             <!-- Images -->
@@ -166,7 +166,7 @@ import SimilarProducts from '@/components/frontend/products/SimilarProducts.vue'
 import ShareModal from '@/components/frontend/ShareModal.vue';
 import TopBanner from '@/components/frontend/TopBanner.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps({
@@ -230,6 +230,9 @@ ${props.auth?.user ? props.auth.user.name : 'Client Anonyme'}
     const encodedMessage = encodeURIComponent(message);
     return `https://wa.me/${whatsAppNumber}?text=${encodedMessage}`;
 });
+
+const page = usePage();
+const isGuest = computed(() => !page.props.auth?.user);
 </script>
 
 <style scoped>

@@ -6,7 +6,7 @@
     <NavbarFrontend :auth="$page.props.auth as Record<string, any> | undefined" class="mt-10 md:mt-12" /><br /><br />
     <FloatingAction />
     <section>
-        <LoginReminder v-if="isGuest" />
+        <!-- <LoginReminder v-if="isGuest" /> -->
 
         <div class="container mx-auto p-4">
             <div class="mb-12 text-center">

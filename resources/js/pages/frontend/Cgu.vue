@@ -5,10 +5,13 @@ import Footer from '@/components/frontend/Footer.vue';
 import LoginReminder from '@/components/frontend/flash/LoginReminder.vue';
 import BackButton from '@/components/frontend/BackButton.vue';
 import { Head } from '@inertiajs/inertia-vue3';
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import CartWidget from '@/components/frontend/panier/CartWidget.vue';
 import TopBanner from '@/components/frontend/TopBanner.vue';
 import FlashMessageNewsletter from '@/components/FlashMessageNewsletter.vue';
-
+const page = usePage();
+const isGuest = computed(() => !page.props.auth?.user);
 const sections = [
     {
         title: "1. À propos de Boris Tech",
@@ -58,7 +61,7 @@ const sections = [
     <section
         class="px-6  antialiased bg-[var(--secondary-white)] text-[var(--text-dark)] dark:bg-[var(--dark-background)] dark:text-[var(--dark-white)]">
         <div class=" mx-auto">
-            <LoginReminder />
+            <!-- <LoginReminder  v-if="isGuest"/> -->
             <!-- 🔹 Bouton retour -->
             <BackButton />
             <h1 class="text-2xl font-bold mb-8  text-[var(--primary-blue)] dark:text-[var(--dark-accent)]">
@@ -82,3 +85,4 @@ const sections = [
 <style scoped>
 /* Pour les petits ajustements éventuels */
 </style>
+

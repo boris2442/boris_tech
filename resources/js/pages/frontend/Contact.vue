@@ -8,7 +8,7 @@
     <TopBanner />
     <NavbarFrontend :auth="$page.props.auth as Record<string, any> | undefined" class="mt-10 md:mt-12" /><br /><br />
     <FloatingAction />
-    <!-- <LoginReminder /> -->
+    <!-- <LoginReminder  v-if="isGuest" /> -->
 
     <!-- Flash message unique en haut -->
     <FlashMessage v-if="alertMessage" :message="alertMessage" type="success" />
@@ -183,7 +183,10 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faClock, faEnvelope, faMapMarkerAlt, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { useForm } from '@inertiajs/inertia-vue3';
-
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+const page = usePage();
+const isGuest = computed(() => !page.props.auth?.user);
 library.add(faPhone, faEnvelope, faMapMarkerAlt, faClock);
 
 const form = useForm({

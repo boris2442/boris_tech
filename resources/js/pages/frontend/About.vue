@@ -11,7 +11,7 @@
 
     <FloatingAction />
     <!-- <LoginReminder /> -->
-    <LoginReminder v-if="isGuest" />
+    <!-- <LoginReminder v-if="isGuest" /> -->
 
     <!-- 💥 Notification flash visible sur TOUTES les pages -->
 

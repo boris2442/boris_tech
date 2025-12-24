@@ -8,7 +8,8 @@ import NavbarFrontend from '@/components/frontend/NavbarFrontend.vue';
 import CartWidget from '@/components/frontend/panier/CartWidget.vue';
 import TopBanner from '@/components/frontend/TopBanner.vue';
 import { Head } from '@inertiajs/inertia-vue3';
-import { reactive } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+import { computed, reactive } from 'vue';
 
 // Définition des sections pour v-for
 const sections = reactive([
@@ -58,6 +59,8 @@ const sections = reactive([
             '📧 Email : <a href="mailto:boristech99@gmail.com" class="text-blue-500">boristech99@gmail.com</a><br/>📍 Adresse : Boris Tech, Bafoussam - Yaoundé, Cameroun',
     },
 ]);
+const page = usePage();
+const isGuest = computed(() => !page.props.auth?.user);
 </script>
 <template>
     <CartWidget />
@@ -66,7 +69,7 @@ const sections = reactive([
     <TopBanner />
     <NavbarFrontend :auth="$page.props.auth as Record<string, any> | undefined" class="mt-10 md:mt-12" />
     <FloatingAction /> <br />
-    <LoginReminder />
+    <!-- <LoginReminder v-if="isGuest" /> -->
     <section
         class="bg-[var(--secondary-white)] px-6 text-[var(--text-dark)] antialiased dark:bg-[var(--dark-background)] dark:text-[var(--dark-white)]"
     >

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import NavbarFrontend from '@/components/frontend/NavbarFrontend.vue';
 import TopBanner from '@/components/frontend/TopBanner.vue';
 import FloatingAction from '@/components/frontend/FloatingAction.vue';
@@ -8,7 +8,9 @@ import { Head } from '@inertiajs/inertia-vue3';
 import LoginReminder from '@/components/frontend/flash/LoginReminder.vue';
 import CartWidget from '@/components/frontend/panier/CartWidget.vue';
 import FlashMessageNewsletter from '@/components/FlashMessageNewsletter.vue';
-
+import { usePage } from '@inertiajs/vue3';
+const page = usePage();
+const isGuest = computed(() => !page.props.auth?.user);
 const faqs = [
     { question: "Comment passer une commande ?", answer: "Pour passer une commande, rendez-vous sur la page produits et cliquez sur 'Ajouter au panier'..." },
     { question: "Quels moyens de paiement acceptez-vous ?", answer: "Nous acceptons Orange Money, Mobile Money, PayPal et les cartes bancaires." },
@@ -34,7 +36,7 @@ function toggle(index) {
     <TopBanner />
     <NavbarFrontend :auth="$page.props.auth as Record<string, any> | undefined" class="mt-10 md:mt-12" />
     <FloatingAction />
-    <LoginReminder />
+    <!-- <LoginReminder  v-if="isGuest" /> -->
     <section class="faq-container max-w-3xl mx-auto px-4 py-12">
         <h1 class="text-3xl font-bold mb-8  text-[var(--primary-blue)] dark:text-[var(--dark-accent)]">
             Foire Aux Questions (F.A.Q) 
