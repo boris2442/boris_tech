@@ -199,7 +199,7 @@ function addToCart(product) {
 }
 //send url message
 
-const whatsAppNumber = import.meta.env.VITE_WHATSAPP_NUMBER || '237656894773';
+const whatsAppNumber = import.meta.env.VITE_WHATSAPP_NUMBER || '237694223503';
 
 const whatsAppLink = computed(() => {
     // Sécurité : tronquer et nettoyer le titre

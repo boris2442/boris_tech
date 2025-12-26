@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use Inertia\Inertia;
-use App\Http\Requests\Backend\ProductRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductImage;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Backend\ProductRequest;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class ProductController extends Controller
 {
@@ -28,12 +29,10 @@ class ProductController extends Controller
 
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
-                    // Générer un nom unique
+                    //            // Générer un nom unique
                     $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-
-                    // Déplacer le fichier directement dans public/imageProducts/
+                    //                 // Déplacer le fichier directement dans public/imageProducts/
                     $image->move(public_path('imageProducts'), $filename);
-
                     // Enregistrer le chemin relatif dans la base
                     $product->images()->create([
                         'url_image' => 'imageProducts/' . $filename,
@@ -42,7 +41,7 @@ class ProductController extends Controller
             }
 
             return redirect()->route('products.index')
-                //->with('success', 'Produit ajouté avec succès !');
+                //             //->with('success', 'Produit ajouté avec succès !');
 
                 ->with(
                     'flash',
@@ -52,12 +51,9 @@ class ProductController extends Controller
                         'href' => route('products.create')
                     ]
                 );
-
-
-
         } catch (\Exception $e) {
             return redirect()->back()
-             
+
                 ->with(
                     'flash',
                     [
@@ -66,10 +62,67 @@ class ProductController extends Controller
                         'href' => route('products.create')
                     ]
                 );
-
-
         }
     }
+
+    // public function store(ProductRequest $request)
+    // {
+    //     try {
+    //         $product = Product::create($request->validated());
+
+    //         if ($request->hasFile('images')) {
+
+    //             // Initialiser l’optimizer
+    //             $optimizerChain = OptimizerChainFactory::create();
+
+    //             foreach ($request->file('images') as $image) {
+
+    //                 // Nom unique
+    //                 $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+
+    //                 // Chemin final
+    //                 $path = public_path('imageProducts/' . $filename);
+
+    //                 // Déplacer l’image
+    //                 $image->move(public_path('imageProducts'), $filename);
+
+    //                 // 🔥 OPTIMISATION ICI
+    //                 $optimizerChain->optimize($path);
+
+    //                 // Enregistrer en base
+    //                 $product->images()->create([
+    //                     'url_image' => 'imageProducts/' . $filename,
+    //                 ]);
+    //             }
+    //         }
+
+    //         return redirect()->route('products.index')->with(
+    //             'flash',
+    //             [
+    //                 'message' => 'Produit ajouté avec succès !',
+    //                 'text' => 'Ajouter un autre',
+    //                 'href' => route('products.create')
+    //             ]
+    //         );
+    //     } catch (\Exception $e) {
+    //         return redirect()->back()->with(
+    //             'flash',
+    //             [
+    //                 'message' => 'Erreur lors de l\'ajout du produit',
+    //                 'text' => 'Essayez encore',
+    //                 'href' => route('products.create')
+    //             ]
+    //         );
+    //     }
+    // }
+
+
+
+
+
+
+
+
 
 
     public function indexBackend(Request $request)
@@ -130,9 +183,6 @@ class ProductController extends Controller
             return redirect()->back()
 
                 ->with('error', 'produits introuvable.');
-
-
-
         }
 
         $product->delete();
@@ -227,8 +277,4 @@ class ProductController extends Controller
             'auth' => auth()->user()
         ]);
     }
-
-
-
-
 }
