@@ -6,56 +6,56 @@ const logos = [
     'partenariats/spacecameroon.jpg',
     'partenariats/logo.jpg',
     'partenariats/se.jpg',
-    'partenariats/chtech.jpeg',
+    'partenariats/chtech.jpg',
 
     'partenariats/bml.jpeg',
     'partenariats/Walner.jpg',
     'partenariats/spacecameroon.jpg',
     'partenariats/logo.jpg',
     'partenariats/se.jpg',
-    'partenariats/chtech.jpeg',
+    'partenariats/chtech.jpg',
 
     'partenariats/bml.jpeg',
     'partenariats/Walner.jpg',
     'partenariats/spacecameroon.jpg',
     'partenariats/logo.jpg',
     'partenariats/se.jpg',
-    'partenariats/chtech.jpeg',
+    'partenariats/chtech.jpg',
 
     'partenariats/bml.jpeg',
     'partenariats/Walner.jpg',
     'partenariats/spacecameroon.jpg',
     'partenariats/logo.jpg',
     'partenariats/se.jpg',
-    'partenariats/chtech.jpeg',
+    'partenariats/chtech.jpg',
 
     'partenariats/bml.jpeg',
     'partenariats/Walner.jpg',
     'partenariats/spacecameroon.jpg',
     'partenariats/logo.jpg',
     'partenariats/se.jpg',
-    'partenariats/chtech.jpeg',
+    'partenariats/chtech.jpg',
 
     'partenariats/bml.jpeg',
     'partenariats/Walner.jpg',
     'partenariats/spacecameroon.jpg',
     'partenariats/logo.jpg',
     'partenariats/se.jpg',
-    'partenariats/chtech.jpeg',
+    'partenariats/chtech.jpg',
 
     'partenariats/bml.jpeg',
     'partenariats/Walner.jpg',
     'partenariats/spacecameroon.jpg',
     'partenariats/logo.jpg',
     'partenariats/se.jpg',
-    'partenariats/chtech.jpeg',
+    'partenariats/chtech.jpg',
 
     'partenariats/bml.jpeg',
     'partenariats/Walner.jpg',
     'partenariats/spacecameroon.jpg',
     'partenariats/logo.jpg',
     'partenariats/se.jpg',
-    'partenariats/chtech.jpeg',
+    'partenariats/chtech.jpg',
 ];
 </script>
 
@@ -122,13 +122,13 @@ const logos = [
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-50%);
+        transform: translateX(-100%);
     }
 }
 
 @keyframes marquee-right {
     0% {
-        transform: translateX(-50%);
+        transform: translateX(-100%);
     }
     100% {
         transform: translateX(0);
@@ -136,10 +136,10 @@ const logos = [
 }
 
 .animate-marquee-left {
-    animation: marquee-left 35s linear infinite;
+    animation: marquee-left 45s linear infinite;
 }
 
 .animate-marquee-right {
-    animation: marquee-right 35s linear infinite;
+    animation: marquee-right 45s linear infinite;
 }
 </style>
