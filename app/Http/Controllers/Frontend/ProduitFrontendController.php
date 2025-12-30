@@ -1,12 +1,15 @@
 <?php
+
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Product;
-use Illuminate\Support\Facades\Cache;
 use App\Models\Category;
+use Carbon\CarbonInterface;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+
 class ProduitFrontendController extends Controller
 {
     public function index(Request $request)
@@ -81,6 +84,24 @@ class ProduitFrontendController extends Controller
         // Transformer le modèle en tableau et la relation descriptionProduct aussi
         $productArray = $product->toArray();
 
+
+   // 2. LOGIQUE DE DATE HYBRIDE (Moins de 24h = heures, sinon = date fixe)
+    if ($product->created_at->gt(now()->subDay())) {
+        $productArray['display_date'] = $product->created_at->diffForHumans([
+            'parts' => 1,
+            'syntax' => \Carbon\CarbonInterface::DIFF_RELATIVE_TO_NOW
+        ]);
+    } else {
+        $productArray['display_date'] = 'le ' . $product->created_at->translatedFormat('d M');
+    }
+
+    // On garde quand même ces formats au cas où tu en aurais besoin ailleurs
+    $productArray['created_at_formatted'] = $product->created_at->translatedFormat('d F Y');
+    $productArray['created_at_diff'] = $product->created_at->diffForHumans();
+
+
+
+
         // Si descriptionProduct existe, garder le contenu, sinon null
         $productArray['descriptionProduct'] = $product->descriptionProduct
             ? $product->descriptionProduct->toArray()
@@ -122,5 +143,4 @@ class ProduitFrontendController extends Controller
             $product->increment('views_count');
         }
     }
-
 }
