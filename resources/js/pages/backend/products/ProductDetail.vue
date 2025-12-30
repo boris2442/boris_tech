@@ -238,6 +238,8 @@ import NavbarFrontend from '@/components/frontend/NavbarFrontend.vue';
 import CartWidget from '@/components/frontend/panier/CartWidget.vue';
 import { cartStore } from '@/components/frontend/panier/stores/cart';
 import ProductDescriptions from '@/components/frontend/products/ProductDescriptions.vue';
+//importation de lucide
+import { Clock } from 'lucide-vue-next'
 import SimilarProducts from '@/components/frontend/products/SimilarProducts.vue';
 import ShareModal from '@/components/frontend/ShareModal.vue';
 import TopBanner from '@/components/frontend/TopBanner.vue';

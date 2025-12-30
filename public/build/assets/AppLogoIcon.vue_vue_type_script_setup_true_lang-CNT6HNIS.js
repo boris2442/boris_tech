@@ -1,0 +1,1 @@
+import{d as t,c as a,x as o,l as r}from"./app-BQrKA2zg.js";const l=t({inheritAttrs:!1,__name:"AppLogoIcon",props:{className:{}},setup(s){return(e,c)=>(r(),a("img",o({src:"/assets/boristech.jpg",class:s.className},e.$attrs,{alt:"Boris Tech Logo",class:"text-white"}),null,16))}});export{l as _};

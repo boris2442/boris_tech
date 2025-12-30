@@ -2,7 +2,7 @@
 import ContactNav from '@/components/frontend/ContactNav.vue';
 import ScroolProgress from '@/components/frontend/ScrollProgress.vue';
 import SocialMedia from '@/components/frontend/SocialMedia.vue';
-//import ThemeToggle from '@/components/frontend/ThemeToggle.vue';
+import ThemeToggle from '@/components/frontend/ThemeToggle.vue';
 import { about, contact, home } from '@/routes';
 import blogFrontend from '@/routes/blogFrontend';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -19,7 +19,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { BookOpen } from 'lucide-vue-next';
-import ThemeToggle from './ThemeToggle .vue';
+// import ThemeToggle from '@/components/frontend/ThemeToggle.vue';
 
 import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
@@ -57,6 +57,7 @@ const isActive = (route) => {
                         </Link>
                     </div>
 
+                    <!-- Navbar Links Desktop -->
                     <!-- Navbar Links Desktop -->
                     <div class="hidden flex-1 justify-center space-x-8 md:flex">
                         <Link prefetch :href="about()" class="nav-item group flex flex-col items-center">
@@ -121,7 +122,46 @@ const isActive = (route) => {
                         </template>
                     </div>
 
-                 
+                    <div class="flex w-full items-center justify-around md:hidden">
+                        <Link prefetch :href="about()" class="mobile-nav-item text-[var(--dark-gold)]">
+                            <FontAwesomeIcon icon="info-circle" class="text-xl" />
+                            <span>À propos</span>
+                        </Link>
+
+                        <Link prefetch :href="contact()" class="mobile-nav-item text-[var(--dark-gold)]">
+                            <FontAwesomeIcon icon="envelope" class="text-xl" />
+                            <span>Contact</span>
+                        </Link>
+
+                        <Link prefetch :href="blogFrontend.index().url" class="mobile-nav-item text-[var(--dark-gold)]">
+                            <BookOpen class="h-5 w-5" />
+                            <span>Blogs</span>
+                        </Link>
+
+                        <template v-if="isAuthenticated">
+                            <Link prefetch href="/dashboard" class="mobile-nav-item text-[var(--dark-gold)]">
+                                <FontAwesomeIcon icon="tachometer-alt" class="text-xl" />
+                                <span>Dashboard</span>
+                            </Link>
+
+                            <Link prefetch href="/logout" method="post" class="mobile-nav-item text-[var(--dark-gold)]">
+                                <FontAwesomeIcon icon="sign-out-alt" class="text-xl" />
+                                <span>Sortir</span>
+                            </Link>
+                        </template>
+
+                        <template v-else>
+                            <Link prefetch href="/login" class="mobile-nav-item text-[var(--dark-gold)]">
+                                <FontAwesomeIcon icon="right-to-bracket" class="text-xl" />
+                                <span>Login</span>
+                            </Link>
+
+                            <Link prefetch href="/register" class="mobile-nav-item text-[var(--dark-gold)]">
+                                <FontAwesomeIcon icon="user-plus" class="text-xl" />
+                                <span>Inscription</span>
+                            </Link>
+                        </template>
+                    </div>
 
                     <div class="md:block">
                         <ThemeToggle />
