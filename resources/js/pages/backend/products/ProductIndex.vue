@@ -25,7 +25,14 @@
             </div>
 
             <!-- Liste des catégories -->
-            <div class="mb-4 flex justify-start gap-3 overflow-x-auto px-2 whitespace-nowrap">
+            <div class="mb-4 flex justify-start gap-3 overflow-x-auto px-2 whitespace-nowrap py-4">
+                <span
+                    @click="filterByPromo"
+                    :class="selectedCategory === 'promo' ? 'scale-105 bg-red-600 text-white shadow-lg' : 'bg-red-100 font-bold text-red-600'"
+                    class="inline-block scale-105 animate-pulse cursor-pointer rounded-full px-4 py-2 text-sm transition-all duration-300 hover:bg-red-600 hover:text-white hover:shadow-lg"
+                >
+                    🔥 Promos
+                </span>
                 <span
                     @click="filterByCategory('')"
                     :class="categoryButtonClass('')"
@@ -46,8 +53,7 @@
             <hr class="mb-6 border-t border-gray-300 dark:border-[var(--dark-grey)]" />
 
             <!-- Produits -->
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-                <!-- Skeleton loader -->
+            <!-- <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 <template v-if="loading">
                     <div v-for="n in skeletonCount" :key="n" class="product-card flex flex-col overflow-hidden rounded shadow-md">
                         <div class="skeleton mb-3 h-40 w-full rounded"></div>
@@ -62,7 +68,6 @@
                     </div>
                 </template>
 
-                <!-- Produits réels -->
                 <template v-else>
                     <div
                         v-for="product in filteredProducts"
@@ -71,7 +76,6 @@
                         class="product-card flex flex-col rounded transition-transform duration-300 hover:scale-105"
                         :class="darkMode ? 'border border-[var(--dark-grey)] bg-[var(--dark-background)] shadow-md' : 'bg-background-light shadow-md'"
                     >
-                        <!-- Images -->
                         <div class="overflow-hidden rounded">
                             <swiper v-if="product.images.length > 1" :modules="[Autoplay, Pagination]" :autoplay="{ delay: 3000 }" pagination loop>
                                 <swiper-slide v-for="img in product.images" :key="img.id">
@@ -95,10 +99,9 @@
                             </Link>
                         </div>
 
-                        <!-- Infos produit -->
                         <div class="flex flex-1 flex-col p-3">
                             <h3 class="mt-2 mb-1 truncate text-sm font-medium">{{ product.title }}</h3>
-                            <!-- metttre la description et le prix en display flex -->
+
                             <div class="mt-1 flex justify-between">
                                 <p class="dark:text-dark-grey text-[10px] text-gray-500">
                                     <span
@@ -111,7 +114,6 @@
                             </div>
                         </div>
 
-                        <!-- Boutons -->
                         <div class="mt-auto flex items-center justify-between p-3 py-1">
                             <button
                                 @click="flyToCart($event, product)"
@@ -155,6 +157,124 @@
                     </div>
                     <CartWidget />
                 </template>
+            </div> -->
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                <template v-if="loading">
+                    <div v-for="n in skeletonCount" :key="n" class="product-card flex flex-col overflow-hidden rounded shadow-md">
+                        <div class="skeleton mb-3 h-40 w-full rounded"></div>
+                        <div class="flex flex-1 flex-col p-3">
+                            <div class="skeleton mb-2 h-4 w-3/4 rounded"></div>
+                            <div class="skeleton h-3 w-1/2 rounded"></div>
+                        </div>
+                        <div class="mt-auto flex items-center justify-between p-3">
+                            <div class="skeleton h-6 w-6 rounded-full"></div>
+                            <div class="skeleton h-6 w-6 rounded-full"></div>
+                        </div>
+                    </div>
+                </template>
+
+                <template v-else>
+                    <div
+                        v-for="product in filteredProducts"
+                        :key="product.id"
+                        :data-id="product.id"
+                        class="product-card flex flex-col rounded transition-transform duration-300 hover:scale-105"
+                        :class="darkMode ? 'border border-[var(--dark-grey)] bg-[var(--dark-background)] shadow-md' : 'bg-background-light shadow-md'"
+                    >
+                        <div class="relative overflow-hidden rounded">
+                            <div
+                                v-if="product.is_promo"
+                                class="absolute top-2 left-2 z-10 rounded bg-red-600 px-2 py-1 text-[10px] font-bold text-white shadow-lg"
+                            >
+                                PROMO
+                            </div>
+
+                            <swiper v-if="product.images.length > 1" :modules="[Autoplay, Pagination]" :autoplay="{ delay: 3000 }" pagination loop>
+                                <swiper-slide v-for="img in product.images" :key="img.id">
+                                    <Link :href="`/products/${product.slug}`" prefetch>
+                                        <img
+                                            :src="getImageUrl(img.url_image)"
+                                            :alt="product.title"
+                                            loading="lazy"
+                                            class="h-40 w-full rounded object-cover transition-transform duration-300 hover:scale-110"
+                                        />
+                                    </Link>
+                                </swiper-slide>
+                            </swiper>
+                            <Link v-else :href="`/products/${product.slug}`" prefetch>
+                                <img
+                                    :src="getImageUrl(product.images[0]?.url_image)"
+                                    :alt="product.title"
+                                    loading="lazy"
+                                    class="h-40 w-full rounded object-cover transition-transform duration-300 hover:scale-110"
+                                />
+                            </Link>
+                        </div>
+
+                        <div class="flex flex-1 flex-col p-3">
+                            <h3 class="mt-2 mb-1 truncate text-sm font-medium">{{ product.title }}</h3>
+                            <div class="mt-1 flex items-end justify-between">
+                                <p class="dark:text-dark-grey text-[10px] text-gray-500">
+                                    <span
+                                        class="rounded-full border border-[var(--accent-cyan)] px-2 py-1 font-semibold text-[var(--accent-cyan)] dark:border-[var(--dark-grey)] dark:text-[var(--dark-grey)]"
+                                    >
+                                        {{ product.category.name }}
+                                    </span>
+                                </p>
+
+                                <div class="flex flex-col items-end">
+                                    <span v-if="product.is_promo && product.old_price" class="text-[10px] text-gray-400 line-through">
+                                        {{ product.old_price }} FCFA
+                                    </span>
+                                    <p
+                                        class="text-sm font-bold"
+                                        :class="product.is_promo ? 'text-red-600' : darkMode ? 'text-dark-white' : 'text-text-dark'"
+                                    >
+                                        {{ product.prix }} FCFA
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto flex items-center justify-between p-3 py-1">
+                            <button
+                                @click="flyToCart($event, product)"
+                                class="text-[var(--accent-cyan)] transition-transform duration-200 hover:scale-125 active:scale-90 dark:text-white"
+                            >
+                                <font-awesome-icon :icon="['fas', 'cart-shopping']" />
+                            </button>
+
+                            <div class="mt-1 flex items-center gap-1 text-sm text-gray-500">
+                                <Eye class="h-4 w-4 text-gray-400" />
+                                <span class="text-xs">{{ product.views_count }} vue{{ product.views_count > 1 ? 's' : '' }}</span>
+                            </div>
+
+                            <button
+                                @click="toggleLike(product)"
+                                :class="[
+                                    'transition-transform duration-200 hover:scale-125 active:scale-90',
+                                    product.liked ? 'text-red-500' : 'text-[var(--accent-cyan)]',
+                                ]"
+                            >
+                                <font-awesome-icon :icon="['far', 'heart']" />
+                                <span class="ml-1 text-xs font-extrabold dark:text-[var(--dark-grey)]">{{ product.likes_count }}</span>
+                            </button>
+                        </div>
+
+                        <div
+                            class="m-2 flex items-center justify-center rounded-xl border-2 border-blue-700 px-3 py-2 text-center text-sm font-semibold text-blue-700 transition-colors duration-200 hover:bg-blue-700 hover:text-white"
+                        >
+                            <Link
+                                :href="`/products/${product.slug}`"
+                                prefetch
+                                class="flex w-full items-center justify-center text-center dark:text-gray-300"
+                            >
+                                <ShoppingCartIcon class="mr-2" /> Voir plus
+                            </Link>
+                        </div>
+                    </div>
+                </template>
             </div>
 
             <div v-if="!loading && filteredProducts.length === 0" class="dark:text-dark-grey mt-6 text-center text-gray-500">
@@ -195,7 +315,6 @@
 import FlashMessageNewsletter from '@/components/FlashMessageNewsletter.vue';
 import About2 from '@/components/frontend/About2.vue';
 import FlashMessageFrontend from '@/components/frontend/flash/FlashMessageFrontend.vue';
-import LoginReminder from '@/components/frontend/flash/LoginReminder.vue';
 import FloatingAction from '@/components/frontend/FloatingAction.vue';
 import Footer from '@/components/frontend/Footer.vue';
 import HeroSection from '@/components/frontend/HeroSection.vue';
@@ -276,11 +395,19 @@ onMounted(() => {
         }, 1000);
     }
 });
-
+function filterByPromo() {
+    selectedCategory.value = 'promo';
+}
 // 🔍 Filtre des produits (basé sur les vrais produits, pas une copie)
 const filteredProducts = computed(() => {
     return props.products.filter((product) => {
         const matchSearch = product.title.toLowerCase().includes(search.value.toLowerCase());
+
+        // Filtre par promo// Logique spécifique pour le filtre PROMO
+        if (selectedCategory.value === 'promo') {
+            return matchSearch && product.is_promo;
+        }
+
         const matchCategory = selectedCategory.value === '' || product.category_id === selectedCategory.value;
         return matchSearch && matchCategory;
     });

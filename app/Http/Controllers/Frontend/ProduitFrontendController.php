@@ -85,19 +85,19 @@ class ProduitFrontendController extends Controller
         $productArray = $product->toArray();
 
 
-   // 2. LOGIQUE DE DATE HYBRIDE (Moins de 24h = heures, sinon = date fixe)
-    if ($product->created_at->gt(now()->subDay())) {
-        $productArray['display_date'] = $product->created_at->diffForHumans([
-            'parts' => 1,
-            'syntax' => \Carbon\CarbonInterface::DIFF_RELATIVE_TO_NOW
-        ]);
-    } else {
-        $productArray['display_date'] = 'le ' . $product->created_at->translatedFormat('d M');
-    }
+        // 2. LOGIQUE DE DATE HYBRIDE (Moins de 24h = heures, sinon = date fixe)
+        if ($product->created_at->gt(now()->subDay())) {
+            $productArray['display_date'] = $product->created_at->diffForHumans([
+                'parts' => 1,
+                'syntax' => \Carbon\CarbonInterface::DIFF_RELATIVE_TO_NOW
+            ]);
+        } else {
+            $productArray['display_date'] = 'le ' . $product->created_at->translatedFormat('d M');
+        }
 
-    // On garde quand même ces formats au cas où tu en aurais besoin ailleurs
-    $productArray['created_at_formatted'] = $product->created_at->translatedFormat('d F Y');
-    $productArray['created_at_diff'] = $product->created_at->diffForHumans();
+        // On garde quand même ces formats au cas où tu en aurais besoin ailleurs
+        $productArray['created_at_formatted'] = $product->created_at->translatedFormat('d F Y');
+        $productArray['created_at_diff'] = $product->created_at->diffForHumans();
 
 
 

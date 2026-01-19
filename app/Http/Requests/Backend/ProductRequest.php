@@ -25,6 +25,9 @@ class ProductRequest extends FormRequest
             'title' => 'required|string|max:255|min:2',
             'description' => 'nullable|string',
             'prix' => 'required|numeric|min:0',
+            // Nouveaux champs
+            'is_promo' => 'boolean',
+            'old_price' => 'nullable|required_if:is_promo,true|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
             'status' => 'required|in:disponible,indisponible',
@@ -51,7 +54,9 @@ class ProductRequest extends FormRequest
             'status.in' => 'Le statut doit être "disponible" ou "indisponible".',
             'images.*.image' => 'Chaque fichier doit être une image valide.',
             'images.*.max' => 'Chaque image ne peut pas dépasser 2 Mo.',
+            // ... tes messages existants ...
+            'old_price.required_if' => "L'ancien prix est obligatoire si le produit est en promotion.",
+            'old_price.numeric' => "L'ancien prix doit être un nombre.",
         ];
     }
-
 }

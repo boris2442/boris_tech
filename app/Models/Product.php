@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Product extends Model
 {
     use HasFactory;
@@ -15,6 +16,8 @@ class Product extends Model
         'description',
         'prix',
         'stock',
+        'is_promo',    // Ajouté
+        'old_price',   // Ajouté
         'category_id',
         'status',
         'views_count',
@@ -75,6 +78,4 @@ class Product extends Model
     {
         return $this->hasOne(DescriptionProduct::class);
     }
-
-
 }

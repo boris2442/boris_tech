@@ -59,10 +59,10 @@ const text = ` ${productUrl}`;
 function enc(s) {
     return encodeURIComponent(s);
 }
-
+const phone = '237694223503'; // ex : Cameroun
 // -- URLs de partage --
 const shareUrls = {
-    whatsapp: `https://wa.me/?text=${enc(text)}`,
+    whatsapp: `https://wa.me/$${phone}?text=${enc(text)}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${enc(productUrl)}&t=${enc(productTitle)}`,
     telegram: `https://t.me/share/url?url=${enc(productUrl)}&text=${enc(productTitle)}`,
     twitter: `https://twitter.com/intent/tweet?text=${enc(productTitle)}&url=${enc(productUrl)}`,

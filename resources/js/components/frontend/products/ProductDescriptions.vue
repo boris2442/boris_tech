@@ -1,33 +1,3 @@
-<!-- <template>
-    <section class="bg-background-light product-descriptions py-8 shadow-inner dark:bg-[var(--highlight-gold)]">
-        <h2 class="mb-6 text-2xl font-bold">Descriptions supplémentaires</h2>
-
-
-        <div
-            v-if="descriptionProduct && descriptionProduct.content"
-            class="rounded-lg border-l-4 border-[var(--primary-blue)] bg-white p-4 text-sm leading-relaxed text-gray-700 shadow-sm md:p-6 md:text-base dark:bg-gray-800 dark:text-gray-300"
-        >
-            {{ descriptionProduct.content }}
-        </div>
-    </section>
-</template>
-
-<script setup>
-const props = defineProps({
-    descriptionProduct: {
-        type: Object,
-        default: null,
-    },
-});
-</script>
-
-<style scoped>
-
-.product-descriptions div {
-    max-height: 400px;
-    overflow-y: auto;
-}
-</style> -->
 
 <template>
     <section class="bg-background-light product-descriptions py-8 shadow-inner dark:bg-[var(--highlight-gold)]">

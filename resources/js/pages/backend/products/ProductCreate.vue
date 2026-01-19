@@ -35,6 +35,8 @@ const form = useForm({
     title: '',
     description: '',
     prix: '',
+    is_promo: false, // Nouveau
+    old_price: '', // Nouveau
     stock: 0,
     category_id: '',
     status: 'disponible',
@@ -45,25 +47,68 @@ const form = useForm({
 const imagePreviews = ref([]);
 
 // Submit formulaire
+// const submitForm = () => {
+//     const data = new FormData();
+//     data.append('title', form.title);
+//     data.append('description', form.description);
+//     data.append('prix', form.prix);
+//     data.append('stock', form.stock);
+//     data.append('category_id', form.category_id);
+//     data.append('status', form.status);
+
+//     form.images.forEach((file) => data.append('images[]', file));
+
+//     form.post('/admin/products/store', {
+//         onSuccess: () => {
+//             form.reset();
+//             imagePreviews.value = [];
+//         },
+//         onError: (errors) => {},
+//     });
+// };
+
+// Submit formulaire mis à jour
+// const submitForm = () => {
+//     const data = new FormData();
+//     data.append('title', form.title);
+//     data.append('description', form.description);
+//     data.append('prix', form.prix);
+//     data.append('is_promo', form.is_promo ? '1' : '0'); // Converti en string pour FormData
+//     if (form.old_price) data.append('old_price', form.old_price);
+
+//     data.append('stock', form.stock);
+//     data.append('category_id', form.category_id);
+//     data.append('status', form.status);
+
+//     form.images.forEach((file) => data.append('images[]', file));
+
+//     form.post('/admin/products/store', {
+//         onSuccess: () => {
+//             form.reset();
+//             imagePreviews.value = [];
+//         },
+//     });
+// };
+
+
+
+
+// Submit formulaire simplifié et fonctionnel
 const submitForm = () => {
-    const data = new FormData();
-    data.append('title', form.title);
-    data.append('description', form.description);
-    data.append('prix', form.prix);
-    data.append('stock', form.stock);
-    data.append('category_id', form.category_id);
-    data.append('status', form.status);
-
-    form.images.forEach((file) => data.append('images[]', file));
-
+    // Inertia gère automatiquement le FormData si 'images' contient des fichiers
     form.post('/admin/products/store', {
+        forceFormData: true, // Force l'envoi en multipart/form-data pour les fichiers
         onSuccess: () => {
             form.reset();
             imagePreviews.value = [];
         },
-        onError: (errors) => {},
+        onError: (errors) => {
+            console.log("Erreurs de validation :", errors);
+        },
     });
 };
+
+
 
 // Gestion fichiers images
 const handleFiles = (event: Event) => {
@@ -92,7 +137,37 @@ const removeImage = (index: number) => {
                     <span v-if="form.errors.title" class="text-sm">{{ form.errors.title }}</span>
                     <Textarea label="Description" v-model="form.description" :error="form.errors.description" />
                     <span v-if="form.errors.description" class="text-sm">{{ form.errors.description }}</span>
-                    <Input label="Prix" v-model="form.prix" type="number" :error="form.errors.prix" />
+                    <Input label="Prix actuel" v-model="form.prix" type="number" :error="form.errors.prix" />
+
+                    <!-- //checkbox -->
+                    <div
+                        class="flex items-center gap-2 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-2 dark:border-zinc-700 dark:bg-zinc-900"
+                    >
+                        <input
+                            type="checkbox"
+                            id="is_promo"
+                            v-model="form.is_promo"
+                            class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        />
+                        <label for="is_promo" class="cursor-pointer text-sm font-medium text-gray-700 dark:text-zinc-300">
+                            Mettre ce produit en promotion
+                        </label>
+                    </div>
+
+                    <!--  -->
+                    <div v-if="form.is_promo" class="grid grid-cols-1 gap-4 border-l-4 border-orange-400 bg-orange-50 p-4 dark:bg-orange-900/10">
+                        <Input
+                            label="Ancien Prix (Prix barré)"
+                            v-model="form.old_price"
+                            type="number"
+                            placeholder="Ex: 12000"
+                            :error="form.errors.old_price"
+                        />
+                        <p class="text-[10px] text-orange-600 dark:text-orange-400">
+                            Note: Le "Prix Actuel" sera le prix payé, l'"Ancien Prix" sera affiché barré.
+                        </p>
+                    </div>
+
                     <Input label="Stock" v-model="form.stock" type="number" :error="form.errors.stock" />
                     <span v-if="form.errors.stock" class="text-sm">{{ form.errors.stock }}</span>
                     <div>

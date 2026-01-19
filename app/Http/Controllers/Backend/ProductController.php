@@ -24,8 +24,23 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
+        //dd($request->all()); // <-- AJOUTE CECI ICI
         try {
-            $product = Product::create($request->validated());
+            //$product = Product::create($request->validated());
+
+
+
+            // 1. On récupère toutes les données validées dans un tableau
+            $data = $request->validated();
+
+            // 2. On transforme spécifiquement 'is_promo' en un vrai VRAI booléen (true/false)
+            // Laravel a une méthode magique pour ça : $request->boolean()
+            $data['is_promo'] = $request->boolean('is_promo');
+
+            // 3. Maintenant, on donne le tableau propre à Product::create()
+            $product = Product::create($data);
+
+
 
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
@@ -64,58 +79,6 @@ class ProductController extends Controller
                 );
         }
     }
-
-    // public function store(ProductRequest $request)
-    // {
-    //     try {
-    //         $product = Product::create($request->validated());
-
-    //         if ($request->hasFile('images')) {
-
-    //             // Initialiser l’optimizer
-    //             $optimizerChain = OptimizerChainFactory::create();
-
-    //             foreach ($request->file('images') as $image) {
-
-    //                 // Nom unique
-    //                 $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-
-    //                 // Chemin final
-    //                 $path = public_path('imageProducts/' . $filename);
-
-    //                 // Déplacer l’image
-    //                 $image->move(public_path('imageProducts'), $filename);
-
-    //                 // 🔥 OPTIMISATION ICI
-    //                 $optimizerChain->optimize($path);
-
-    //                 // Enregistrer en base
-    //                 $product->images()->create([
-    //                     'url_image' => 'imageProducts/' . $filename,
-    //                 ]);
-    //             }
-    //         }
-
-    //         return redirect()->route('products.index')->with(
-    //             'flash',
-    //             [
-    //                 'message' => 'Produit ajouté avec succès !',
-    //                 'text' => 'Ajouter un autre',
-    //                 'href' => route('products.create')
-    //             ]
-    //         );
-    //     } catch (\Exception $e) {
-    //         return redirect()->back()->with(
-    //             'flash',
-    //             [
-    //                 'message' => 'Erreur lors de l\'ajout du produit',
-    //                 'text' => 'Essayez encore',
-    //                 'href' => route('products.create')
-    //             ]
-    //         );
-    //     }
-    // }
-
 
 
 

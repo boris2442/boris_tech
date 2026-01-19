@@ -9,7 +9,7 @@
             ref="cartButton"
             class="animate-cart relative flex h-12 w-12 items-center justify-center rounded-full bg-[var(--primary-blue)] text-[var(--dark-gold)] shadow-lg transition-transform hover:scale-110"
         >
-            <font-awesome-icon :icon="['fas', 'cart-shopping']" class="animate-spin-slow text-2xl" />
+            <font-awesome-icon :icon="['fas', 'cart-shopping']" class=" text-2xl" />
             <span
                 v-if="totalItems > 0"
                 class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"

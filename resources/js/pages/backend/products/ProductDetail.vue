@@ -65,7 +65,16 @@
                     <p class="mb-6 leading-relaxed text-gray-600 dark:text-gray-400">{{ product.description }}</p>
 
                     <div class="mb-6 flex items-center justify-between rounded-xl bg-gray-50 p-4 dark:bg-gray-800/50">
-                        <span class="text-2xl font-black text-[var(--primary-blue)]"> {{ product.prix }} <small class="text-sm">FCFA</small> </span>
+                        <div class="flex flex-col">
+                            <span v-if="product.is_promo && product.old_price" class="text-sm text-gray-400 line-through">
+                                {{ product.old_price }} FCFA
+                            </span>
+
+                            <span class="text-2xl font-black" :class="product.is_promo ? 'text-red-600' : 'text-[var(--primary-blue)]'">
+                                {{ product.prix }} <small class="text-sm">FCFA</small>
+                            </span>
+                        </div>
+
                         <a
                             :href="whatsAppLink"
                             target="_blank"
