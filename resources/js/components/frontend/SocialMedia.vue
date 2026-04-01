@@ -22,14 +22,13 @@
 </template>
 
 <script setup>
-import { faFacebookF, faInstagram, faLinkedinIn, faTwitter, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faLinkedinIn, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const socialLinks = [
     { name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61578805022791', icon: faFacebookF },
     { name: 'WhatsApp', url: 'https://chat.whatsapp.com/Czt7TY4NCSj6N4JJAnLMQP', icon: faWhatsapp },
-    { name: 'Instagram', url: 'https://instagram.com/', icon: faInstagram },
-    { name: 'Twitter', url: 'https://twitter.com/', icon: faTwitter },
+
     {
         name: 'LinkedIn',
         url: 'https://www.linkedin.com/in/boris-aubin-simo-26b9a0369/',

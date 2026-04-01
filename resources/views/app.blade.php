@@ -9,7 +9,7 @@
 
     {{-- 2️⃣ Apparence : mode sombre --}}
     <script>
-        (function () {
+        (function() {
             const appearance = '{{ $appearance ?? 'system' }}';
             if (appearance === 'system') {
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Input from '@/components/backend/forms/Input.vue';
 import SubmitButton from '@/components/backend/forms/SubmitButton.vue';
-import Textarea from '@/components/backend/forms/Textarea.vue';
 import BackButton from '@/components/frontend/BackButton.vue';
+import RichText from '@/components/RichText.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import products from '@/routes/products';
@@ -46,53 +46,6 @@ const form = useForm({
 // Aperçu des images
 const imagePreviews = ref([]);
 
-// Submit formulaire
-// const submitForm = () => {
-//     const data = new FormData();
-//     data.append('title', form.title);
-//     data.append('description', form.description);
-//     data.append('prix', form.prix);
-//     data.append('stock', form.stock);
-//     data.append('category_id', form.category_id);
-//     data.append('status', form.status);
-
-//     form.images.forEach((file) => data.append('images[]', file));
-
-//     form.post('/admin/products/store', {
-//         onSuccess: () => {
-//             form.reset();
-//             imagePreviews.value = [];
-//         },
-//         onError: (errors) => {},
-//     });
-// };
-
-// Submit formulaire mis à jour
-// const submitForm = () => {
-//     const data = new FormData();
-//     data.append('title', form.title);
-//     data.append('description', form.description);
-//     data.append('prix', form.prix);
-//     data.append('is_promo', form.is_promo ? '1' : '0'); // Converti en string pour FormData
-//     if (form.old_price) data.append('old_price', form.old_price);
-
-//     data.append('stock', form.stock);
-//     data.append('category_id', form.category_id);
-//     data.append('status', form.status);
-
-//     form.images.forEach((file) => data.append('images[]', file));
-
-//     form.post('/admin/products/store', {
-//         onSuccess: () => {
-//             form.reset();
-//             imagePreviews.value = [];
-//         },
-//     });
-// };
-
-
-
-
 // Submit formulaire simplifié et fonctionnel
 const submitForm = () => {
     // Inertia gère automatiquement le FormData si 'images' contient des fichiers
@@ -103,12 +56,10 @@ const submitForm = () => {
             imagePreviews.value = [];
         },
         onError: (errors) => {
-            console.log("Erreurs de validation :", errors);
+            console.log('Erreurs de validation :', errors);
         },
     });
 };
-
-
 
 // Gestion fichiers images
 const handleFiles = (event: Event) => {
@@ -135,7 +86,10 @@ const removeImage = (index: number) => {
                 <form @submit.prevent="submitForm" enctype="multipart/form-data" class="flex flex-col gap-4">
                     <Input label="Titre du produit" v-model="form.title" :error="form.errors.title" />
                     <span v-if="form.errors.title" class="text-sm">{{ form.errors.title }}</span>
-                    <Textarea label="Description" v-model="form.description" :error="form.errors.description" />
+                    <!-- <Textarea label="Description" v-model="form.description" :error="form.errors.description" /> -->
+
+                    <RichText label="Description" v-model="form.description" :error="form.errors.description" />
+
                     <span v-if="form.errors.description" class="text-sm">{{ form.errors.description }}</span>
                     <Input label="Prix actuel" v-model="form.prix" type="number" :error="form.errors.prix" />
 
