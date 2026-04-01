@@ -139,7 +139,7 @@ const isActive = (route) => page.url === route;
         </nav>
 
         <!-- Compense la navbar fixe -->
-        <div class="pt-[112px]"></div>
+        <div class="pt-[62px]"></div>
     </header>
 </template>
 
